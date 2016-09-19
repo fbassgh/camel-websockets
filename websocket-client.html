@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Websocket Client</title>
+
+        <script type="text/javascript">
+            var wsocket;
+            function connect() {
+                wsocket = new WebSocket("ws://localhost:9292/hooligan");
+                wsocket.onmessage = onMessage;
+                wsocket.onopen = onOpen;
+                wsocket.onclose = onClose;
+                wsocket.onerror = onError;
+            }
+            function onMessage(evt) {
+                document.getElementById("message").innerHTML = evt.data + " - " + new Date().toLocaleString();
+	    }
+            function onOpen(evt) {
+                document.getElementById("message").innerHTML = "CONNECTED - " + new Date().toLocaleString();
+                wsocket.send("I'm a connected hooligan websocket client");
+	    }
+            function onClose(evt) {
+                document.getElementById("message").innerHTML = "DISCONNECTED - " + new Date().toLocaleString();
+            }
+            function onError(evt) {
+                document.getElementById("message").innerHTML = "ERROR - " + evt.data + " - " + new Date().toLocaleString();
+            }
+            window.addEventListener("load", connect, false);
+        </script>
+
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td> <label id="messageLbl">Websocket message recv'd from server: </label></td>
+                <td> <label id="message"></label></td>
+            </tr>
+        </table>
+    </body>
+</html>

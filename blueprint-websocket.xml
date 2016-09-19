@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ @author: frederick.bass
+-->
+<blueprint
+    xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+      http://www.osgi.org/xmlns/blueprint/v1.0.0
+      http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+      <route id="theeWebsocketRoute">
+        <from uri="websocket://hooligan"/>
+        <log message="From websocket subscriber: ${body}" loggingLevel="INFO"/>
+	<setBody>
+          <simple>hello websocket hooligan subscriber.</simple>
+        </setBody>
+        <to uri="websocket://hooligan"/>
+      </route>
+    </camelContext>
+
+</blueprint>
